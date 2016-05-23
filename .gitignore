@@ -2,3 +2,4 @@
 nb-configuration
 .metadata
 /RemoteSystemsTempFiles
+/src/main/webapp/bower_components

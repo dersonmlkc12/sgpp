@@ -1,0 +1,19 @@
+{
+  "name": "sgpp",
+  "homepage": "https://github.com/dersonmlkc12/sgpp",
+  "authors": [
+    "Anderson <anderson.mlkc@gmail.com>"
+  ],
+  "description": "sistema de gerenciamento de projetos de pesquisa",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-messages": "^1.5.5",
+    "angular-animate": "^1.5.5",
+    "angular-jwt": "^0.0.9",
+    "angular-i18n": "^1.5.5",
+    "angular-loading-bar": "^0.9.0"
+  }
+}
