@@ -16,6 +16,17 @@ public class Projeto implements Serializable {
     @GeneratedValue(generator = "gen_projeto", strategy = GenerationType.SEQUENCE)
     private Long id;
     private String titulo;
+    private String descricao;
+    private String status;
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -25,11 +36,21 @@ public class Projeto implements Serializable {
         this.titulo = titulo;
     }
 
-    public Long getId() {
-        return id;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 }
