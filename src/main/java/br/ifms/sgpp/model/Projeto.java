@@ -19,7 +19,6 @@ public class Projeto implements Serializable {
     private String descricao;
     private String status;
     
-
     public Long getId() {
         return id;
     }

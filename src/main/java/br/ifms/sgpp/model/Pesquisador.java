@@ -1,6 +1,7 @@
 package br.ifms.sgpp.model;
 
 import br.ifms.sgpp.enums.SexoEnum;
+import br.ifms.sgpp.enums.TitulacaoEnum;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -11,11 +12,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 
 @Entity
-public class Estudante implements Serializable {
-
+public class Pesquisador implements Serializable {
     @Id
-    @SequenceGenerator(name = "gen_estudante", sequenceName = "seq_estudante", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(generator = "gen_estudante", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "gen_pesquisador", sequenceName = "seq_pesquisador", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = "gen_pesquisador", strategy = GenerationType.SEQUENCE)
     private Long id;
     private String nome;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -26,6 +26,7 @@ public class Estudante implements Serializable {
     private String rgUF;
     private String rgDataEmissao;
     private String matricula;
+    private String lotacao;
     private String nacionalidade;
     private String pais;
     private String passaporte;
@@ -38,15 +39,9 @@ public class Estudante implements Serializable {
     private String telefone;
     private String celular;
     private String email;
+    private TitulacaoEnum titulacao;
     private String curriculoLattesLink_;
     private String curriculoLattesDtAtualizacao;
-//private String programa;
-//private String categoria;
-//private String curso;
-//private String curso_semestre;
-//private String curso_conclusao_mes_ano;
-//private String curso_campus;
-//private String curso_coordenacao;
 
     public Long getId() {
         return id;
@@ -118,6 +113,14 @@ public class Estudante implements Serializable {
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public String getLotacao() {
+        return lotacao;
+    }
+
+    public void setLotacao(String lotacao) {
+        this.lotacao = lotacao;
     }
 
     public String getNacionalidade() {
@@ -216,6 +219,14 @@ public class Estudante implements Serializable {
         this.email = email;
     }
 
+    public TitulacaoEnum getTitulacao() {
+        return titulacao;
+    }
+
+    public void setTitulacao(TitulacaoEnum titulacao) {
+        this.titulacao = titulacao;
+    }
+
     public String getCurriculoLattesLink_() {
         return curriculoLattesLink_;
     }
@@ -231,5 +242,8 @@ public class Estudante implements Serializable {
     public void setCurriculoLattesDtAtualizacao(String curriculoLattesDtAtualizacao) {
         this.curriculoLattesDtAtualizacao = curriculoLattesDtAtualizacao;
     }
-
+    
+    
+    
+    
 }
