@@ -27,9 +27,20 @@ public class RecursoHumano implements Serializable {
     private Pesquisador pesquisador;
     @Enumerated
     private TipoParticipacaoEnum tipoParticipacao;
+    @ManyToOne
+    private Estudante estudante; 
     private int cargaHoraria;
     private String atribuicoes;
 
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
+
+    
     public Long getId() {
         return id;
     }
