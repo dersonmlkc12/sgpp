@@ -1,6 +1,8 @@
 package br.ifms.sgpp.model;
 
+import br.ifms.sgpp.enums.StatusProjetoEnum;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +19,8 @@ public class Projeto implements Serializable {
     private Long id;
     private String titulo;
     private String descricao;
-    private String status;
+    private StatusProjetoEnum status;
+    private Date dataInicio;
     
     public Long getId() {
         return id;
@@ -43,13 +46,20 @@ public class Projeto implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getStatus() {
+    public StatusProjetoEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusProjetoEnum status) {
         this.status = status;
     }
-    
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
     
 }

@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="sgpp">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <head>
+        <!--<meta http-equiv="Content-Type" content="text/html"/>-->
+       
+        <meta charset = "UTF-8" />
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+        <link rel="stylesheet" type="text/css" href="./resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./resources/bower_components/angular-loading-bar/build/loading-bar.min.css">
+        <link rel="stylesheet" type="text/css" href="./resources/stylesheets/style.css">
+        <script src="./resources/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./resources/bower_components/angular/angular.min.js"></script>
+        <script src="./resources/bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="./resources/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="./resources/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="./resources/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
+        <script src="./resources/bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+        <script src="./resources/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="./resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./resources/bower_components/angular-loading-bar/build/loading-bar.min.css">
-   
-    <link rel="stylesheet" type="text/css" href="./resources/stylesheets/style.css">
-    <script src="./resources/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="./resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./resources/bower_components/angular/angular.min.js"></script>
-    <script src="./resources/bower_components/angular-messages/angular-messages.min.js"></script>
-    <script src="./resources/bower_components/angular-route/angular-route.min.js"></script>
-    <script src="./resources/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="./resources/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
-    <script src="./resources/bower_components/angular-i18n/angular-locale_pt-br.js"></script>
-    <script src="./resources/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+        <script src="./resources/js/app.js"></script>
+        <script src="./resources/js/controller/headerController.js"></script>
+        <title>SGPP</title>
+    </head>
+    <body>
+        <!--Include de menu navbar-->
+        <div ng-include="'./resources/view/header.html'" class="container" style="border:black 2px"></div>
 
-    <script src="./resources/js/app.js"></script>
-    <script src="./resources/js/controller/headerController.js"></script>
-    <title>SGPP</title>
-</head>
-<body>
-<!--Include de menu navbar-->
-<div ng-include="'./resources/view/header.html'" ></div>
+        <!--Container de views-->
+        <div class="">
+            <div ng-view="view"></div>
+        </div>
 
-<!--Container de views-->
-<div class="container">
-    <div ng-view="view">
-        
-    </div>
-</div>
-
-<!--Include de rodape-->
-<div ng-include="'./resources/view/footer.html'"></div>
-</body>
+        <!--Include de rodape-->
+        <div ng-include="'./resources/view/footer.html'"></div>
+    </body>
 </html>
