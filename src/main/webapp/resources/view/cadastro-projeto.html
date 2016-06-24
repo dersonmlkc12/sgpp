@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
     <div style="float:left;">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="#">Projeto</a></li>
@@ -7,17 +7,16 @@
         </ul> 
     </div>
 
-    <div style="float:right; width:88%">
+    <div style="float:right; width:85%" ng-controller="CharactersCtrl">
         <div class="panel" style="background-color: #F5F5F5;">
             <h2 style="text-align: center;">Projetos</h2>    
         </div>
         <div class="control-group" style="padding-bottom: 10px;">
-            <div class="col-lg-14">
+            <div class="col-lg-13">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar...">
+                    <input type="text" ng-model="searchChar" class="form-control" placeholder="Pesquisar...">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-info glyphicon glyphicon-search"></button>
-                        <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
+                       <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
                     </span>
                 </div>
             </div>
@@ -35,29 +34,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Antonio</td>
-                        <td>email@teste1.com</td>
-                        <td>(92) 92929-2929</td>
-                        <td>Ativo</td>
-                    </tr>
-                    <tr>
-                        <td>Pedro</td>
-                        <td>email@teste2.com</td>
-                        <td>(92) 3523-9299</td>
-                        <td>Ativo</td>
-                    </tr>
-                    <tr>
-                        <td>Pacheco</td>
-                        <td>email@teste3.com</td>
-                        <td>(92) 9292-4324</td>
-                        <td>Ativo</td>
-                    </tr>
-                    <tr>
-                        <td>Juca Pinto</td>
-                        <td>email@teste4.com</td>
-                        <td>(92) 5563-9299</td>
-                        <td>Ativo</td>
+                    <tr ng-repeat="char in characters| filter:searchChar">
+                        <td>{{char.name}}</td>
+                        <td>{{char.role}}</td>
+                        <td>{{char.gender}}</td>
                     </tr>
 
                 </tbody>
