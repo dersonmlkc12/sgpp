@@ -2,7 +2,7 @@
 <html lang="pt" ng-app="sgpp">
     <head>
         <meta charset="UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="./resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./resources/bower_components/angular-loading-bar/build/loading-bar.min.css">
@@ -16,18 +16,19 @@
         <script src="./resources/bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
         <script src="./resources/bower_components/angular-i18n/angular-locale_pt-br.js"></script>
         <script src="./resources/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-
-        <script src="./resources/js/config.js"></script>
+        
+       
         <script src="./resources/js/app.js"></script>
         <script src="./resources/js/controller/headerController.js"></script>
-        <title>SGPP</title>
+        <script src="./resources/js/controller/estudanteController.js"></script>
+        <title>SGPP</title> 
     </head>
     <body>
         <!--Include de menu navbar-->
         <div ng-include="'./resources/view/header.html'" class="container" style="border:black 2px"></div>
 
         <!--Container de views-->
-        <div class="">
+        <div class="container-fluid body-content">
             <div ng-view="view"></div>
         </div>
 

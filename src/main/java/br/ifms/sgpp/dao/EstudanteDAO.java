@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Gustavo
  */
 @Component
+@SuppressWarnings("unchecked")
 public class EstudanteDAO extends HibernateDAO<Estudante>{
     public EstudanteDAO() {
         super(Estudante.class);
@@ -26,6 +27,12 @@ public class EstudanteDAO extends HibernateDAO<Estudante>{
         Query q = getSession().createQuery("from Estudante");
         List<Estudante> estudantes = q.list();
         return estudantes;
+    }
+    
+    public boolean delete(Long id){
+        Estudante e = get(id);
+        delete(e);
+        return true;
     }
  
 }
