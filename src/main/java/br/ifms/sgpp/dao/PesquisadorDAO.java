@@ -17,7 +17,7 @@ public class PesquisadorDAO extends HibernateDAO<Pesquisador>{
     }
      
     public List<Pesquisador> getPesquisador() {
-        Query q = getSession().createQuery("from Pesquisador");
+        Query q = getSession().createQuery("from Pesquisador  order by nome asc");
         List<Pesquisador> pesquisador = q.list();
         return pesquisador;
     }

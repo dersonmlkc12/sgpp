@@ -15,7 +15,7 @@ public class EstudanteDAO extends HibernateDAO<Estudante>{
     }
     
     public List<Estudante> getEstudante() {
-        Query q = getSession().createQuery("from Estudante");
+        Query q = getSession().createQuery("from Estudante order by nome asc");
         List<Estudante> estudantes = q.list();
         return estudantes;
     }

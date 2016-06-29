@@ -1,334 +1,360 @@
-<div class="container">
-    <div style="float:left;">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#cadastro-rh">Estudante</a></li>
-            <li role="presentation"><a href="#cadastro-pesq">Pesquisador</a></li>
-        </ul> 
-    </div>
-
-    <div style="float:right; width:85%">    
-        <div class="panel" style="background-color: #F5F5F5;">
-            <h2 style="text-align: center;">Estudantes</h2>    
+<head><meta charset="UTF-8"></head>
+<div ng-controller="controlleEstudante">
+    <div class="container">
+        <div style="float:left;">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="active"><a href="#cadastro-rh">Estudante</a></li>
+                <li role="presentation"><a href="#cadastro-pesq">Pesquisador</a></li>
+            </ul> 
         </div>
-        <div class="control-group" style="padding-bottom: 10px;">
-            <div class="col-lg-13">
-                <div class="input-group">
-                    <input type="text" ng-model="searchChar" class="form-control" placeholder="Pesquisar...">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"> Inserir</button>
-                    </span>
+
+        <div style="float:right; width:85%">    
+            <div class="panel" style="background-color: #F5F5F5;">
+                <h2 style="text-align: center;">Estudantes</h2>    
+            </div>
+            <div class="control-group" style="padding-bottom: 10px;">
+                <div class="col-lg-13">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchChar" class="form-control" placeholder="Pesquisar...">
+                        <span class="input-group-btn">
+                            <button type="button"  ng-click="novo()" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"> Inserir</button>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="control-group" ng-controller="controlleEstudante">
-            <table id="tabela" class="table table-striped table-bordered" cellspacing="0" width="40%">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th style="width:20px;">&nbsp;</th>
-                        <th style="width:20px;">&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="est in listEstudantes| filter:searchChar">
-                        <td>{{est.nome}}</td>
-                        <td>{{est.email}}</td>
-                        <td>{{est.telefone}}</td>
-                        <td>
-                            <a ng-click="list(est.id)" data-toggle="modal" data-target="#myModalupdate" class="btn btn-small btn-primary">editar</a>
-                        </td>
-                        <td>                         
-                            <a ng-click="deletar(est.id)" class="btn btn-small btn-danger">excluir</a>
-                        </td>
-                    </tr> 
-                </tbody>
-            </table>
+            <div class="control-group">
+                <table id="tabela" class="table table-striped table-bordered" cellspacing="0" width="40%">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th style="width:20px;">&nbsp;</th>
+                            <th style="width:20px;">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="estl in listEstudantes| filter:searchChar">
+                            <td>{{estl.nome}}</td>
+                            <td>{{estl.email}}</td>
+                            <td>{{estl.telefone}}</td>
+                            <td>
+                                <a ng-click="editar(estl.id)" data-toggle="modal" data-target="#myModalupdate" class="btn btn-small btn-primary">editar</a>
+                            </td>
+                            <td>                         
+                                <a ng-click="editar(estl.id)" data-toggle="modal" data-target="#myModalDelete" class="btn btn-small btn-danger">excluir</a>
+                            </td>
+                        </tr> 
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">Cadastro de Estudante</h3>
-            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">Cadastro de Estudante</h3>
+                </div>
 
-            <div id="formulario" ng-controller="controlleEstudante">
-                <form novalidate name="customerForm">
-                    <div class="form-group" ng-class="{
+                <div id="formulario">
+                    <form novalidate name="customerForm">
+                        <div class="form-group" ng-class="{
                                 'has-error':customerForm.titulo.$invalid&& !customerForm.titulo.$pristine }">
-                        <label>Nome</label>
-                        <input ng-model="nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.nome">
-                        <p ng-show="customerForm.nome.$error.minlength"class="help-block">
-                            Nome muito Curto!
-                        </p>
-                    </div>
+                            <label>Nome</label>
+                            <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.nome">
+                            <p ng-show="customerForm.nome.$error.minlength"class="help-block">
+                                Nome muito Curto!
+                            </p>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Data Nascimento</label>
-                        <input ng-model="data" type="date" class="form-control" required ng-minlength="4">
-                        <p ng-show="customerForm.data.$error.minlength"class="help-block">
-                            Data muito Curto!
-                        </p>
-                    </div>
+                        <div class="form-group">
+                            <label>Data Nascimento</label>
+                            <input ng-model="est.data" type="date" class="form-control" required ng-minlength="4">
+                            <p ng-show="customerForm.data.$error.minlength"class="help-block">
+                                Data invalida!
+                            </p>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Sexo</label>
-                        <p>
-                            <label class="radio-inline"><input ng-model="sexo" type="radio">Masculino</label>
-                            <label class="radio-inline"><input ng-model="sexo" type="radio">Feminino</label>
-                        </p>
+                        <div class="form-group">
+                            <label>Sexo</label>
+                            <p>
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="est.sexo" value="MASCULINO">Masculino
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="est.sexo" value="FEMININO">Feminino
+                                </label>
+                            </p>
+                        </div>
 
-                    </div>
+                        <div class="form-group">
+                            <label>RG</label>
+                            <input ng-model="est.rg" type="text" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>RG</label>
-                        <input ng-model="rg" type="text" class="form-control" required ng-minlength="4">
-                    </div>
+                        <div class="form-group">
+                            <label>OrgÃ£o Emissor</label>
+                            <input ng-model="est.rgOrgaoaoEmissor" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Orgão Emissor</label>
-                        <input ng-model="rgOrgaoaoEmissor" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Data EmissÃ£o</label>
+                            <input ng-model="est.dataEmissao" type="date" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Data Emissão</label>
-                        <input ng-model="dataEmissao" type="date" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Matricula</label>
+                            <input ng-model="est.matricula" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Matricula</label>
-                        <input ng-model="matricula" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Nacionalidade</label>
+                            <input ng-model="est.nacionalidade" type="text" class="form-control" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Nacionalidade</label>
-                        <input ng-model="nacionalidade" type="text" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label>PaÃ­s</label>
+                            <input ng-model="est.pais" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>País</label>
-                        <input ng-model="pais" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Passaporte</label>
+                            <input ng-model="est.passaporte" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Passaporte</label>
-                        <input ng-model="passaporte" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>visto</label>
+                            <input ng-model="est.visto" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>visto</label>
-                        <input ng-model="visto" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>PerÃ­odo de VigÃªncia</label>
+                            <input ng-model="est.periodoVigencia" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Período de Vigência</label>
-                        <input ng-model="periodoVigencia" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>EndereÃ§o</label>
+                            <input ng-model="est.endereco" type="text" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Endereço</label>
-                        <input ng-model="endereco" type="text" class="form-control" required ng-minlength="4">
-                    </div>
+                        <div class="form-group">
+                            <label>CEP</label>
+                            <input ng-model="est.cep" type="text" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>CEP</label>
-                        <input ng-model="cep" type="text" class="form-control" required ng-minlength="4">
-                    </div>
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input ng-model="est.cidade" type="text" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Cidade</label>
-                        <input ng-model="cidade" type="text" class="form-control" required ng-minlength="4">
-                    </div>
+                        <div class="form-group">
+                            <label>UF</label>
+                            <input ng-model="est.uf" type="text" class="form-control" required ng-minlength="2">
+                        </div>
 
-                    <div class="form-group">
-                        <label>UF</label>
-                        <input ng-model="uf" type="text" class="form-control" required ng-minlength="2">
-                    </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input ng-model="est.telefone" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Telefone</label>
-                        <input ng-model="telefone" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Celular</label>
+                            <input ng-model="est.celular" type="text" class="form-control">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Celular</label>
-                        <input ng-model="celular" type="text" class="form-control">
-                    </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input ng-model="est.email" type="email" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input ng-model="email" type="text" class="form-control" required ng-minlength="4">
-                    </div>
+                        <div class="form-group">
+                            <label>Link Curriculo Lattes</label>
+                            <input ng-model="est.curriculo" type="text" class="form-control" required ng-minlength="4">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Link Curriculo Lattes</label>
-                        <input ng-model="curriculo" type="text" class="form-control" required ng-minlength="4">
+                        <div class="form-group">
+                            <label>Data Ultima AtualizaÃ§Ã£o Curriculo Lattes</label>
+                            <input ng-model="est.dataCurriculo" type="date" class="form-control">
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        
+                        <button type="button" ng-disabled="customerForm.$invalid" ng-click="salvar()" class="btn btn-primary">
+                            Salvar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-
-                    <div class="form-group">
-                        <label>Data Ultima Atualização Curriculo Lattes</label>
-                        <input ng-model="dataCurriculo" type="date" class="form-control">
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <!--ng-disabled="customerForm.$invalid"-->
-                    <button type="button" ng-click="salvar()" class="btn btn-primary">
-                        Salvar
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-
-
-
-
-<!--modal de atualizacao-->
-<div  ng-controller="controlleEstudante" class="modal fade" id="myModalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">Atualiza Estudante</h3>          
-            </div>
-
-            <div id="formulario">
-                <form novalidate name="customerForm">
-                   
-                    <div class="form-group" >
-                        <label>Nome</label>
-                        <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" >
-                    </div>
-
-                    <div class="form-group">
-                        <label>Data Nascimento</label>
-                        <input ng-model="data" type="date" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sexo</label>
-                        <p>
-                            <label class="radio-inline"><input ng-model="sexo" type="radio">Masculino</label>
-                            <label class="radio-inline"><input ng-model="sexo" type="radio">Feminino</label>
-                        </p>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>RG</label>
-                        <input ng-model="rg" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Orgão Emissor</label>
-                        <input ng-model="rgOrgaoaoEmissor" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Data Emissão</label>
-                        <input ng-model="dataEmissao" type="date" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Matricula</label>
-                        <input ng-model="matricula" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nacionalidade</label>
-                        <input ng-model="nacionalidade" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>País</label>
-                        <input ng-model="pais" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Passaporte</label>
-                        <input ng-model="passaporte" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>visto</label>
-                        <input ng-model="visto" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Período de Vigência</label>
-                        <input ng-model="periodoVigencia" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Endereço</label>
-                        <input ng-model="endereco" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>CEP</label>
-                        <input ng-model="cep" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Cidade</label>
-                        <input ng-model="cidade" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>UF</label>
-                        <input ng-model="uf" type="text" class="form-control" required ng-minlength="2">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Telefone</label>
-                        <input ng-model="telefone" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Celular</label>
-                        <input ng-model="celular" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input ng-model="email" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Link Curriculo Lattes</label>
-                        <input ng-model="curriculo" type="text" class="form-control" required ng-minlength="4">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Data Ultima Atualização Curriculo Lattes</label>
-                        <input ng-model="dataCurriculo" type="date" class="form-control">
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <!--ng-disabled="customerForm.$invalid"-->
-                    <button type="button" ng-click="salvar()" class="btn btn-primary">
-                        Atualizar
+    <!--modal de atualizacao-->
+    <div  class="modal fade" id="myModalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <h3 class="modal-title" id="myModalLabel">Atualiza Estudante</h3>          
+                </div>
+
+                <div id="formulario">
+                    <form novalidate name="customerForm">
+
+                        <div class="form-group" >
+                            <label>Nome</label>
+                            <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" >
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Nascimento</label>
+                            <input ng-model="est.data" type="date" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sexo</label>
+                            <p>
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="est.sexo" value="MASCULINO">Masculino
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="est.sexo" value="FEMININO">Feminino
+                                </label>
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>RG</label>
+                            <input ng-model="est.rg" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>OrgÃ£o Emissor</label>
+                            <input ng-model="est.rgOrgaoaoEmissor" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data EmissÃ£o</label>
+                            <input ng-model="est.dataEmissao" type="date" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Matricula</label>
+                            <input ng-model="est.matricula" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nacionalidade</label>
+                            <input ng-model="est.nacionalidade" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>PaÃ­s</label>
+                            <input ng-model="est.pais" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Passaporte</label>
+                            <input ng-model="est.passaporte" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>visto</label>
+                            <input ng-model="est.visto" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>PerÃ­odo de VigÃªncia</label>
+                            <input ng-model="est.periodoVigencia" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>EndereÃ§o</label>
+                            <input ng-model="est.endereco" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>CEP</label>
+                            <input ng-model="est.cep" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input ng-model="est.cidade" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>UF</label>
+                            <input ng-model="est.uf" type="text" class="form-control" required ng-minlength="2">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input ng-model="est.telefone" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Celular</label>
+                            <input ng-model="est.celular" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input ng-model="est.email" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Link Curriculo Lattes</label>
+                            <input ng-model="est.curriculo" type="text" class="form-control" required ng-minlength="4">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data Ultima AtualizaÃ§Ã£o Curriculo Lattes</label>
+                            <input ng-model="est.dataCurriculo" type="date" class="form-control">
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+
+                        <button type="button" ng-click="atualizar()"  class="btn btn-primary">
+                            Atualizar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div  class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Deseja realmente Excluir? </h4>
+                </div>
+                <div class="modal-footer">
+                    <h4 style="text-align: left">Estudante {{est.nome}}</h4>
+                    <button type="button" ng-click="deletar(est.id)" class="btn btn-primary">
+                        Sim
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NÃ£o</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+

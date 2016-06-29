@@ -52,7 +52,7 @@ public class EstudanteService {
     //Atualiza registro
     @PUT
     @Produces("application/json")
-     @Path("/atualiza")
+    @Path("/atualiza")
     @Transactional(rollbackFor = Exception.class)
     public boolean update(Estudante estu){
         estudanteDAO.update(estu);

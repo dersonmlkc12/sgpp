@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +27,7 @@ public class Estudante implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataNascimento;
     @Column(name = "sexo")
+    @Enumerated(EnumType.STRING)
     private SexoEnum sexo;
     @Column(name = "rg")
     private String rg;
