@@ -1,6 +1,6 @@
-        app.controller('controlleEstudante', function ($scope, $http ) {
+        app.controller('controllePesquisador', function ($scope, $http ) {
             //Url base da aplicação
-            $scope.url = 'http://localhost:8080/SGPP/rest/estudante/';
+            $scope.url = 'http://localhost:8080/SGPP/rest/pesquisador/';
 
             //Insere um novo registro
             $scope.salvar = function () {
@@ -32,7 +32,7 @@
                 res.success(function (data) {
                     $scope.message = data;
                     location.reload();
-                    window.location.href("http://localhost:8080/SGPP/#/cadastro-rh");
+                    window.location.href("http://localhost:8080/SGPP/#/cadastro-proj");
                 });
                 res.error(function (data) {
                     alert("failure message: " + JSON.stringify({data: data}));
@@ -41,13 +41,14 @@
 
             //Lista todos os registros
             $http.get($scope.url).success(function (response) {
-                $scope.listEstudantes = response;
+                $scope.listPesquisadores = response;
             });
 
             //Deleta um registro pelo id
             $scope.deletar = function (id) {
                 var result = confirm('Deseja realmente excluir ?');
-                if (result == true) {                 
+                if (result == true) {
+                    
                     $http.delete($scope.url + 'delete/' + id).success(function (response) {
                         location.reload();
                     })

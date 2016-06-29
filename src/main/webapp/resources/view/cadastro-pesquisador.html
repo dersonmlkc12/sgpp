@@ -3,11 +3,10 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="#cadastro-rh">Estudante</a></li>
             <li role="presentation" class="active"><a href="#cadastro-pesq">Pesquisador</a></li>
-            <li role="presentation"><a href="#cadastro-volu">Voluntario</a></li>
         </ul> 
     </div>
 
-    <div style="float:right; width:85%" ng-controller="CharactersCtrl">    
+    <div style="float:right; width:85%">    
         <div class="panel" style="background-color: #F5F5F5;">
             <h2 style="text-align: center;">Pesquisadores</h2>    
         </div>
@@ -16,36 +15,43 @@
                 <div class="input-group">
                     <input type="text" ng-model="searchChar" class="form-control" placeholder="Pesquisar...">
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
+                        <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"> Inserir</button>
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="control-group">
+
+        <div class="control-group" ng-controller="controllePesquisador">
             <table id="tabela" class="table table-striped table-bordered" cellspacing="0" width="40%">
                 <thead>
                     <tr>
-                        <th>Titulo</th>
-                        <th>Status</th>
-                        <th>Descrição</th>
-                        <th>Status</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th style="width:20px;">&nbsp;</th>
+                        <th style="width:20px;">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
-                     <tr ng-repeat="char in characters| filter:searchChar">
-                        <td>{{char.name}}</td>
-                        <td>{{char.role}}</td>
-                        <td>{{char.gender}}</td>
-                        <td>teste</td>
-                    </tr>
-
+                    <tr ng-repeat="est in listPesquisadores| filter:searchChar">
+                        <td>{{est.nome}}</td>
+                        <td>{{est.email}}</td>
+                        <td>{{est.telefone}}</td>
+                        <td>
+                            <a ng-click="list(est.id)" data-toggle="modal" data-target="#myModalupdate" class="btn btn-small btn-primary">editar</a>
+                        </td>
+                        <td>                         
+                            <a ng-click="deletar(est.id)" class="btn btn-small btn-danger">excluir</a>
+                        </td>
+                    </tr> 
                 </tbody>
             </table>
         </div>
     </div>
 </div>
- 
+
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -54,134 +60,280 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title" id="myModalLabel">Cadastro de Estudante</h3>
+                <h3 class="modal-title" id="myModalLabel">Cadastro de Pesquisador</h3>
             </div>
 
-            <div id="formulario" >
-                <form novalidate name="customerForm" ng-submit="vm.save(vm.customer)">
-
+            <div id="formulario" ng-controller="controllePesquisador">
+                <form novalidate name="customerForm">
                     <div class="form-group" ng-class="{
-                                'has-error':customerForm.titulo.$invalid && !customerForm.titulo.$pristine }">
+                                'has-error':customerForm.titulo.$invalid&& !customerForm.titulo.$pristine }">
                         <label>Nome</label>
-                        <input name="nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.titulo">
-                        <p ng-show="customerForm.titulo.$error.minlength"class="help-block">
+                        <input ng-model="nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.nome">
+                        <p ng-show="customerForm.nome.$error.minlength"class="help-block">
                             Nome muito Curto!
                         </p>
                     </div>
 
                     <div class="form-group">
                         <label>Data Nascimento</label>
-                        <input name="status" type="date" class="form-control" required ng-minlength="4">
-                        <p ng-show="customerForm.status.$error.minlength"class="help-block">
-                            Status muito Curto!
+                        <input ng-model="data" type="date" class="form-control" required ng-minlength="4">
+                        <p ng-show="customerForm.data.$error.minlength"class="help-block">
+                            Data muito Curto!
                         </p>
                     </div>
 
                     <div class="form-group">
                         <label>Sexo</label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="optradio">Masculino</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">Feminino</label>
+                            <label class="radio-inline"><input ng-model="sexo" type="radio">Masculino</label>
+                            <label class="radio-inline"><input ng-model="sexo" type="radio">Feminino</label>
                         </p>
 
                     </div>
 
                     <div class="form-group">
                         <label>RG</label>
-                        <input name="rg" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="rg" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>Orgão Emissor</label>
-                        <input name="rgaoEmissor" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="rgOrgaoaoEmissor" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Data Emissão</label>
-                        <input name="rgaoEmissor" type="date" class="form-control" required ng-minlength="4">
+                        <input ng-model="dataEmissao" type="date" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Matricula</label>
-                        <input name="matricula" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="matricula" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Nacionalidade</label>
-                        <input name="nacionalidade" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="nacionalidade" type="text" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label>País</label>
-                        <input name="pais" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="pais" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Passaporte</label>
-                        <input name="passaporte" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="passaporte" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>visto</label>
-                        <input name="visto" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="visto" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Período de Vigência</label>
-                        <input name="periodoVigencia" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="periodoVigencia" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Endereço</label>
-                        <input name="endereco" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="endereco" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>CEP</label>
-                        <input name="cep" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="cep" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>Cidade</label>
-                        <input name="cidade" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="cidade" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>UF</label>
-                        <input name="uf" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="uf" type="text" class="form-control" required ng-minlength="2">
                     </div>
 
                     <div class="form-group">
                         <label>Telefone</label>
-                        <input name="telefone" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="telefone" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Celular</label>
-                        <input name="celular" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="celular" type="text" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input name="email" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="email" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>Link Curriculo Lattes</label>
-                        <input name="curriculo" type="text" class="form-control" required ng-minlength="4">
+                        <input ng-model="curriculo" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
                     <div class="form-group">
                         <label>Data Ultima Atualização Curriculo Lattes</label>
-                        <input name="dataCurriculo" type="date" class="form-control" required ng-minlength="4">
+                        <input ng-model="dataCurriculo" type="date" class="form-control">
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="submit" ng-disabled="customerForm.$invalid" class="btn btn-primary">
+                    <!--ng-disabled="customerForm.$invalid"-->
+                    <button type="button" ng-click="salvar()" class="btn btn-primary">
                         Salvar
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+
+
+
+
+
+<!--modal de atualizacao-->
+<div  ng-controller="controllePesquisador" class="modal fade" id="myModalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" id="myModalLabel">Atualiza Pesquisador</h3>          
+            </div>
+
+            <div id="formulario">
+                <form novalidate name="customerForm" >
+                   
+                    <div class="form-group" >
+                        <label>Nome</label>
+                        <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.nome">
+<!--                        <p ng-show="customerForm.nome.$error.minlength"class="help-block">
+                            Nome muito Curto!
+                        </p>-->
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data Nascimento</label>
+                        <input ng-model="data" type="date" class="form-control" required ng-minlength="4">
+                        <p ng-show="customerForm.data.$error.minlength"class="help-block">
+                            Data muito Curto!
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <p>
+                            <label class="radio-inline"><input ng-model="sexo" type="radio">Masculino</label>
+                            <label class="radio-inline"><input ng-model="sexo" type="radio">Feminino</label>
+                        </p>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>RG</label>
+                        <input ng-model="rg" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Orgão Emissor</label>
+                        <input ng-model="rgOrgaoaoEmissor" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data Emissão</label>
+                        <input ng-model="dataEmissao" type="date" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Matricula</label>
+                        <input ng-model="matricula" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nacionalidade</label>
+                        <input ng-model="nacionalidade" type="text" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>País</label>
+                        <input ng-model="pais" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Passaporte</label>
+                        <input ng-model="passaporte" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>visto</label>
+                        <input ng-model="visto" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Período de Vigência</label>
+                        <input ng-model="periodoVigencia" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input ng-model="endereco" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CEP</label>
+                        <input ng-model="cep" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cidade</label>
+                        <input ng-model="cidade" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>UF</label>
+                        <input ng-model="uf" type="text" class="form-control" required ng-minlength="2">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input ng-model="telefone" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Celular</label>
+                        <input ng-model="celular" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input ng-model="email" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Link Curriculo Lattes</label>
+                        <input ng-model="curriculo" type="text" class="form-control" required ng-minlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data Ultima Atualização Curriculo Lattes</label>
+                        <input ng-model="dataCurriculo" type="date" class="form-control">
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <!--ng-disabled="customerForm.$invalid"-->
+                    <button type="button" ng-click="salvar()" class="btn btn-primary">
+                        Atualizar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

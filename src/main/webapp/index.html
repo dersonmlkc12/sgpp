@@ -19,8 +19,10 @@
         
        
         <script src="./resources/js/app.js"></script>
-        <script src="./resources/js/controller/headerController.js"></script>
+        <!--<script src="./resources/js/controller/headerController.js"></script>-->
         <script src="./resources/js/controller/estudanteController.js"></script>
+        <script src="./resources/js/controller/pesquisadorController.js"></script>
+        <script src="./resources/js/controller/projetoController.js"></script>
         <title>SGPP</title> 
     </head>
     <body>
@@ -28,7 +30,7 @@
         <div ng-include="'./resources/view/header.html'" class="container" style="border:black 2px"></div>
 
         <!--Container de views-->
-        <div class="container-fluid body-content">
+        <div class="container-fluid body-content">         
             <div ng-view="view"></div>
         </div>
 

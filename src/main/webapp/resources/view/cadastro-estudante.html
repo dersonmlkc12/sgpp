@@ -1,13 +1,12 @@
-<div class="container" ng-controller="headerController">
+<div class="container">
     <div style="float:left;">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="#cadastro-rh">Estudante</a></li>
             <li role="presentation"><a href="#cadastro-pesq">Pesquisador</a></li>
-            <li role="presentation"><a href="#cadastro-volu">Voluntario</a></li>
         </ul> 
     </div>
 
-    <div style="float:right; width:85%" >    
+    <div style="float:right; width:85%">    
         <div class="panel" style="background-color: #F5F5F5;">
             <h2 style="text-align: center;">Estudantes</h2>    
         </div>
@@ -39,10 +38,9 @@
                         <td>{{est.email}}</td>
                         <td>{{est.telefone}}</td>
                         <td>
-                            <a class="btn btn-small btn-primary" data-toggle="modal" data-target="#ModalUpdate">editar</a>
+                            <a ng-click="list(est.id)" data-toggle="modal" data-target="#myModalupdate" class="btn btn-small btn-primary">editar</a>
                         </td>
-                        <td>
-                            
+                        <td>                         
                             <a ng-click="deletar(est.id)" class="btn btn-small btn-danger">excluir</a>
                         </td>
                     </tr> 
@@ -51,6 +49,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -63,7 +62,7 @@
                 <h3 class="modal-title" id="myModalLabel">Cadastro de Estudante</h3>
             </div>
 
-            <div id="formulario" ng-controller="controlleEstudante" >
+            <div id="formulario" ng-controller="controlleEstudante">
                 <form novalidate name="customerForm">
                     <div class="form-group" ng-class="{
                                 'has-error':customerForm.titulo.$invalid&& !customerForm.titulo.$pristine }">
@@ -194,34 +193,33 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+
+
+
+<!--modal de atualizacao-->
+<div  ng-controller="controlleEstudante" class="modal fade" id="myModalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title" id="myModalLabel">Cadastro de Estudante</h3>
+                <h3 class="modal-title" id="myModalLabel">Atualiza Estudante</h3>          
             </div>
 
-            <div id="formulario" ng-controller="controlleEstudante" >
-                <form novalidate name="customerForm" ng-repeat="est in listEstudantes">
-                    <div class="form-group" ng-class="{
-                                'has-error':customerForm.titulo.$invalid&& !customerForm.titulo.$pristine }">
+            <div id="formulario">
+                <form novalidate name="customerForm">
+                   
+                    <div class="form-group" >
                         <label>Nome</label>
-                        <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.nome">
-                        <p ng-show="customerForm.nome.$error.minlength"class="help-block">
-                            Nome muito Curto!
-                        </p>
+                        <input ng-model="est.nome" type="text" class="form-control" required ng-minlength="4" >
                     </div>
 
                     <div class="form-group">
                         <label>Data Nascimento</label>
                         <input ng-model="data" type="date" class="form-control" required ng-minlength="4">
-                        <p ng-show="customerForm.data.$error.minlength"class="help-block">
-                            Data muito Curto!
-                        </p>
                     </div>
 
                     <div class="form-group">
@@ -326,7 +324,7 @@
                 <div class="modal-footer">
                     <!--ng-disabled="customerForm.$invalid"-->
                     <button type="button" ng-click="salvar()" class="btn btn-primary">
-                        Salvar
+                        Atualizar
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>

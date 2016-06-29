@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.ifms.sgpp.dao;
 
 import br.ifms.sgpp.model.Pesquisador;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,5 +14,17 @@ import org.springframework.stereotype.Component;
 public class PesquisadorDAO extends HibernateDAO<Pesquisador>{
     public PesquisadorDAO() {
         super(Pesquisador.class);
+    }
+     
+    public List<Pesquisador> getPesquisador() {
+        Query q = getSession().createQuery("from Pesquisador");
+        List<Pesquisador> pesquisador = q.list();
+        return pesquisador;
+    }
+    
+    public boolean delete(Long id){
+        Pesquisador e = get(id);
+        delete(e);
+        return true;
     }
 }

@@ -1,13 +1,13 @@
-<div class="container" >
+<div class="container">
     <div style="float:left;">
         <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#">Projeto</a></li>
+            <li role="presentation" class="active"><a href="#cadastro-proj">Projeto</a></li>
             <li role="presentation"><a href="#">Coordenador</a></li>
             <li role="presentation"><a href="#">Plano de Trabalho</a></li>
         </ul> 
     </div>
 
-    <div style="float:right; width:85%" ng-controller="CharactersCtrl">
+    <div style="float:right; width:85%">
         <div class="panel" style="background-color: #F5F5F5;">
             <h2 style="text-align: center;">Projetos</h2>    
         </div>
@@ -16,36 +16,44 @@
                 <div class="input-group">
                     <input type="text" ng-model="searchChar" class="form-control" placeholder="Pesquisar...">
                     <span class="input-group-btn">
-                       <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
+                        <button type="button" class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
                     </span>
                 </div>
             </div>
         </div>
 
-        <div class="control-group">
-            <table id="tabela" class="table table-striped table-bordered" cellspacing="0"
-                   width="100%">
+        <div class="control-group" ng-controller="controlleProjeto">
+            <table id="tabela" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Titulo</th>
-                        <th>Status</th>
+                        <th>Data Inicio</th>
                         <th>Descrição</th>
                         <th>Status</th>
+                        <th style="width:20px;">&nbsp;</th>
+                        <th style="width:20px;">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="char in characters| filter:searchChar">
-                        <td>{{char.name}}</td>
-                        <td>{{char.role}}</td>
-                        <td>{{char.gender}}</td>
-                    </tr>
-
+                    <tr ng-repeat="est in listProjetos| filter:searchChar">
+                        <td>{{est.titulo}}</td>
+                        <td>{{est.dataInicio}}</td>
+                        <td>{{est.descricao}}</td>
+                        <td>{{est.status}}</td>
+                        <td>
+                            <a ng-click="list(est.id)" data-toggle="modal" data-target="#myModalupdate" class="btn btn-small btn-primary">editar</a>
+                        </td>
+                        <td>                         
+                            <a ng-click="deletar(est.id)" class="btn btn-small btn-danger">excluir</a>
+                        </td>
+                    </tr> 
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div class="modal fade" ng-controller="controlleProjeto" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,41 +63,31 @@
                 <h3 class="modal-title" id="myModalLabel">Cadastro de Projeto de Pesquisa</h3>
             </div>
             <div class="modal-body">
-                <form novalidate name="customerForm" ng-submit="vm.save(vm.customer)">
+                <form novalidate>
 
-                    <div class="form-group" ng-class="{
-                            'has-error'
-                                    :customerForm.titulo.$invalid && !customerForm.titulo.$pristine }">
+                    <div class="form-group">
                         <label>Titulo</label>
-                        <input name="titulo" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.titulo">
-                        <p ng-show="customerForm.titulo.$error.minlength"class="help-block">
-                            Titulo muito Curto!
-                        </p>
+                        <input ng-model="titulo" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
-                    <div class="form-group" ng-class="{
-                            'has-error'
-                                    :customerForm.status.$invalid && !customerForm.status.$pristine }">
+                    <div class="form-group">
                         <label>Status</label>
-                        <input name="status" type="text" class="form-control" required ng-minlength="4" ng-model="vm.customer.status">
-                        <p ng-show="customerForm.status.$error.minlength"class="help-block">
-                            Status muito Curto!
-                        </p>
+                        <input ng-model="dataInicio" type="date" class="form-control" required ng-minlength="4">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status</label>
+                        <input ng-model="status" type="text" class="form-control" required ng-minlength="4">
                     </div>
 
-                    <div class="form-group" ng-class="{
-                            'has-error'
-                                    :customerForm.descricao.$invalid && !customerForm.descricao.$pristine }">
+                    <div class="form-group" >
                         <label>Descricao</label>
-                        <textarea name="descricao" class="form-control" required ng-minlength="10" ng-model="vm.customer.descricao"></textarea> 
-                        <p ng-show="customerForm.descricao.$error.minlength"class="help-block">
-                            Descrição muito Curta!
-                        </p>
+                        <textarea ng-model="descricao" class="form-control" required ng-minlength="10"></textarea> 
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" ng-disabled="customerForm.$invalid" class="btn btn-primary">
+                <button type="button" ng-click="salvar()" class="btn btn-primary">
                     Salvar
                 </button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

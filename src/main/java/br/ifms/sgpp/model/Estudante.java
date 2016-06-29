@@ -14,12 +14,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Estudante implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
-//    @SequenceGenerator(name = "generator", sequenceName = "produto_id_seq", allocationSize = 1)
-//    @Column(name = "id")
-
-    @Id 
+    @Id
     @GeneratedValue(generator = "gen_estudante", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "gen_estudante", sequenceName = "seq_estudante", initialValue = 1, allocationSize = 1)
     @Column(name = "id")

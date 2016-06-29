@@ -1,22 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ifms.sgpp.dao;
 
 import br.ifms.sgpp.model.Projeto;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author Gustavo
- */
 @Component
-public class ProjetoDAO extends HibernateDAO<Projeto>{
+@SuppressWarnings("unchecked")
+public class ProjetoDAO extends HibernateDAO<Projeto> {
+
     public ProjetoDAO() {
         super(Projeto.class);
+    }
+
+    public List<Projeto> getProjeto() {
+        Query q = getSession().createQuery("from Projeto");
+        List<Projeto> projetos = q.list();
+        return projetos;
+    }
+
+    public boolean delete(Long id) {
+        Projeto e = get(id);
+        delete(e);
+        return true;
     }
 }

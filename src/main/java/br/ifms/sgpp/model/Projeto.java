@@ -4,14 +4,15 @@ import br.ifms.sgpp.enums.StatusProjetoEnum;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Temporal;
 
 @Entity
-@XmlRootElement
 public class Projeto implements Serializable {
     @Id
     @SequenceGenerator(name = "gen_projeto", sequenceName = "seq_projeto", initialValue = 1, allocationSize = 1)
@@ -19,7 +20,9 @@ public class Projeto implements Serializable {
     private Long id;
     private String titulo;
     private String descricao;
+    @Enumerated(EnumType.STRING)
     private StatusProjetoEnum status;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataInicio;
     
     public Long getId() {
